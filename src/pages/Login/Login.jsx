@@ -1,27 +1,39 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/login/login.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import axios from "axios";
 
 const Login = () => {
+  const { signIn } = useContext(AuthContext);
+  const location = useLocation();
+  const Navigate = useNavigate();
+  console.log(location);
 
-  const {signIn} = useContext(AuthContext);
-
-
-  const handleLogin = event => {
+  const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+
     signIn(email, password)
-    .then(result => {
-      const user = result.user;
-      console.log(user);
-    })
-    .catch(error => {
-      console.log(error);
-    })
+      .then((result) => {
+        const loggedInUser = result.user;
+        console.log(loggedInUser);
+        const user = { email };
+        
+        // get access token
+        axios.post("http://localhost:5000/jwt", user, {withCredentials: true})
+        .then((res) => {
+          console.log(res.data);
+          if(res.data.success) {
+            Navigate(location?.state ? location?.state : '/')
+          }
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -75,7 +87,12 @@ const Login = () => {
             </div>
           </form>
           <div>
-            <p className="my-4 text-center">Have an account? <Link className="text-[#FF3811] font-bold" to='/signup'>Sign Up</Link></p>
+            <p className="my-4 text-center">
+              Have an account?{" "}
+              <Link className="text-[#FF3811] font-bold" to="/signup">
+                Sign Up
+              </Link>
+            </p>
           </div>
         </div>
       </div>

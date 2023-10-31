@@ -8,7 +8,7 @@ const Footer = () => {
         <Link to="/" className="btn btn-ghost normal-case text-xl">
           <img src={logo} alt="" />
         </Link>
-        <p>
+        <p className="mt-10">
           ACME Industries Ltd.
           <br />
           Providing reliable tech since 1992
