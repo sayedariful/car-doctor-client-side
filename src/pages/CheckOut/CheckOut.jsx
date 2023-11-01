@@ -7,7 +7,7 @@ import swal from "sweetalert";
 
 const CheckOut = () => {
   const service = useLoaderData();
-  const { title, _id, price, img} = service || {};
+  const { title, _id, price, img } = service || {};
   console.log(service);
   const { user } = useContext(AuthContext);
 
@@ -31,20 +31,20 @@ const CheckOut = () => {
     };
     console.log(booking);
 
-    fetch('http://localhost:5000/bookings', {
-      method: 'POST',
+    fetch("https://car-doctor-server-side-iota.vercel.app/bookings", {
+      method: "POST",
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
       body: JSON.stringify(booking),
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      if(data.insertedId){
-        swal("Good job!", "Service book successfully", "success");
-      }
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          swal("Good job!", "Service book successfully", "success");
+        }
+      });
   };
 
   return (

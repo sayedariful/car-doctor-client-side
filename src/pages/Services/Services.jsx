@@ -1,15 +1,17 @@
-import { useEffect } from "react";
-import { useState } from "react";
+// import { useEffect } from "react";
+// import { useState } from "react";
+import UseServices from "../../Hooks/UseServices";
 import ServiceCard from "./ServiceCard";
 
 const Services = () => {
-  const [services, setServices] = useState([]);
+  const services = UseServices();
+  // const [services, setServices] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/services")
-      .then((res) => res.json())
-      .then((data) => setServices(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://car-doctor-server-side-iota.vercel.app/services")
+  //     .then((res) => res.json())
+  //     .then((data) => setServices(data));
+  // }, []);
 
   return (
     <div className="mt-7">

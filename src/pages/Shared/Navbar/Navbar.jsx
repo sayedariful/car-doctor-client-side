@@ -1,18 +1,18 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
 import { FaSearch } from 'react-icons/fa';
-import { useContext } from "react";
-import { AuthContext } from "../../../providers/AuthProvider";
+// import { useContext } from "react";
+// import { AuthContext } from "../../../providers/AuthProvider";
+import useAuth from "../../../Hooks/useAuth";
 
 const Navbar = () => {
-  const {user, logOut} = useContext(AuthContext)
+  const {user, logOut} = useAuth();
+  // const {user, logOut} = useContext(AuthContext)
 
   const handleLogOut = () => {
     logOut()
     .then(() => {})
-    .catch((error) =>{
-      console.error(error);
-    })
+    .catch((error) => console.error(error))
   };
 
   const navItems = <>

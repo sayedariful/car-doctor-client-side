@@ -12,51 +12,60 @@ import Bookings from "../pages/Bookings/Bookings";
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main></Main>,
-      children: [
-        {
-            path: '/',
-            element: <Home></Home>,
-        },
-        {
-          path: '/about',
-          element: <About></About>
-        },
-        {
-          path: '/services',
-          element: <Services></Services>
-        },
-        {
-          path: '/blog',
-          element: <Blog></Blog>
-        },
-        {
-          path: '/contact',
-          element: <Contact></Contact>
-        },
-        {
-          path: '/login',
-          element: <Login></Login>
-        },
-        {
-          path: '/signup',
-          element: <SignUp></SignUp>,
-        },
-        {
-          path: '/checkout/:id',
-          element: <PrivateRoute><CheckOut></CheckOut></PrivateRoute>,
-          loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`),
-        },
-        {
-          path: '/bookings',
-          element: <PrivateRoute>
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/about",
+        element: <About></About>,
+      },
+      {
+        path: "/services",
+        element: <Services></Services>,
+      },
+      {
+        path: "/blog",
+        element: <Blog></Blog>,
+      },
+      {
+        path: "/contact",
+        element: <Contact></Contact>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/signup",
+        element: <SignUp></SignUp>,
+      },
+      {
+        path: "/checkout/:id",
+        element: (
+          <PrivateRoute>
+            <CheckOut></CheckOut>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://car-doctor-server-side-iota.vercel.app/services/${params.id}`
+          ),
+      },
+      {
+        path: "/bookings",
+        element: (
+          <PrivateRoute>
             <Bookings></Bookings>
           </PrivateRoute>
-        },
-      ]
-    },
-  ]);
+        ),
+      },
+    ],
+  },
+]);
 
-  export default router;
+export default router;
