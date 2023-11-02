@@ -2,12 +2,15 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/login/login.svg";
 // import { useContext } from "react";
 // import { AuthContext } from "../../providers/AuthProvider";
-import axios from "axios";
+// import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
+import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 
 const Login = () => {
   const { signIn } = useAuth();
   // const { signIn } = useContext(AuthContext);
+  const axiosSecure = UseAxiosSecure();
+  console.log(axiosSecure);
 
   const location = useLocation();
   const Navigate = useNavigate();
@@ -26,8 +29,8 @@ const Login = () => {
         const user = { email };
 
         // get access token
-        axios
-          .post("https://car-doctor-server-side-iota.vercel.app/jwt", user, {
+        axiosSecure
+          .post("/jwt", user, {
             withCredentials: true,
           })
           .then((res) => {

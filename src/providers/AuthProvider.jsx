@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      const userEmail = currentUser?.email || user.email;
+      const userEmail = currentUser?.email || user?.email;
       const loggedUser = { email: userEmail };
       setUser(currentUser);
       console.log("Current user", currentUser);
@@ -49,6 +49,7 @@ const AuthProvider = ({ children }) => {
           )
           .then((res) => {
             console.log("token response", res.data);
+            // setUser(currentUser);
           });
       } else {
         axios
@@ -61,12 +62,11 @@ const AuthProvider = ({ children }) => {
           )
           .then((res) => {
             console.log(res.data);
+            // setUser(null);
           });
       }
     });
-    return () => {
-      return unSubscribe;
-    };
+    return () => unSubscribe();
   }, []);
 
   const authInfo = {
